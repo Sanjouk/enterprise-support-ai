@@ -1,0 +1,15 @@
+[project]
+name = "enterprise-support-ai"
+version = "0.1.0"
+description = "An AI-powered customer support assistant that analyzes incoming support tickets, retrieves relevant knowledge base content, calls internal business APIs, and generates structured support responses through a FastAPI backend with Swagger and a minimal web interface."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.135.1",
+    "langchain>=1.2.10",
+    "langgraph>=1.0.10",
+    "marimo>=0.20.4",
+    "numpy>=2.4.2",
+    "pandas>=3.0.1",
+    "pydantic>=2.12.5",
+]
