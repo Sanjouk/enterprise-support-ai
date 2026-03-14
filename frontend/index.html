@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enterprise Support AI | UI</title>
+  <link rel="stylesheet" href="/ui/static/styles.css">
+</head>
+<body>
+  <div class="shape shape-one" aria-hidden="true"></div>
+  <div class="shape shape-two" aria-hidden="true"></div>
+  <main class="shell">
+    <header class="hero">
+      <p class="eyebrow">Enterprise Support AI</p>
+      <h1>Support Console</h1>
+      <p class="subtitle">
+        Небольшой интерфейс для smoke-тестов API и будущего чат-эндпоинта.
+      </p>
+      <div class="hero-links">
+        <a href="/docs" target="_blank" rel="noreferrer">Swagger</a>
+        <a href="/openapi.json" target="_blank" rel="noreferrer">OpenAPI</a>
+      </div>
+    </header>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Состояние API</h2>
+        <p id="statusText" class="status">Проверка...</p>
+        <button id="healthBtn" type="button">Проверить /health</button>
+        <pre id="healthPayload" class="payload"></pre>
+      </article>
+
+      <article class="card">
+        <h2>Тест запроса</h2>
+        <label for="messageInput">Сообщение для /api/v1/chat</label>
+        <textarea id="messageInput" rows="5" placeholder="Например: Клиент просит возврат за подписку."></textarea>
+        <button id="chatBtn" type="button">Отправить POST</button>
+        <p class="hint">
+          Если эндпоинт пока не реализован, интерфейс покажет подсказку.
+        </p>
+      </article>
+    </section>
+
+    <section class="card logs">
+      <h2>Логи запросов</h2>
+      <div class="log-grid">
+        <div>
+          <h3>Request</h3>
+          <pre id="requestPreview" class="payload"></pre>
+        </div>
+        <div>
+          <h3>Response</h3>
+          <pre id="responsePreview" class="payload"></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/ui/static/app.js" defer></script>
+</body>
+</html>
