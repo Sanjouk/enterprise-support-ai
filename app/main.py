@@ -5,12 +5,13 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.api.routes_health import router as health_router
+from app.api.routes_tickets import router as tickets_router
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 FRONTEND_DIR = PROJECT_ROOT / "frontend"
 
 app = FastAPI(
-    title="AI Support Copilot",
+    title="Enterprise Support AI",
     description="Business-oriented support copilot with RAG and tool calling.",
     version="0.1.0",
 )
@@ -19,7 +20,7 @@ app = FastAPI(
 @app.get("/", tags=["root"])
 def root() -> dict[str, str]:
     return {
-        "message": "AI Support Copilot API is running",
+        "message": "Enterprise Support AI API is running",
         "ui": "/ui",
         "docs": "/docs",
     }
@@ -43,3 +44,4 @@ def frontend_ui() -> FileResponse:
 
 
 app.include_router(health_router)
+app.include_router(tickets_router)

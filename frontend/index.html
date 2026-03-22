@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +14,7 @@
       <p class="eyebrow">Enterprise Support AI</p>
       <h1>Support Console</h1>
       <p class="subtitle">
-        Небольшой интерфейс для smoke-тестов API и будущего чат-эндпоинта.
+        A compact interface for API smoke tests, health checks, and ticket analysis.
       </p>
       <div class="hero-links">
         <a href="/docs" target="_blank" rel="noreferrer">Swagger</a>
@@ -24,25 +24,29 @@
 
     <section class="grid">
       <article class="card">
-        <h2>Состояние API</h2>
-        <p id="statusText" class="status">Проверка...</p>
-        <button id="healthBtn" type="button">Проверить /health</button>
+        <h2>API Status</h2>
+        <p id="statusText" class="status">Checking...</p>
+        <button id="healthBtn" type="button">Check /health</button>
         <pre id="healthPayload" class="payload"></pre>
       </article>
 
       <article class="card">
-        <h2>Тест запроса</h2>
-        <label for="messageInput">Сообщение для /api/v1/chat</label>
-        <textarea id="messageInput" rows="5" placeholder="Например: Клиент просит возврат за подписку."></textarea>
-        <button id="chatBtn" type="button">Отправить POST</button>
+        <h2>Ticket Analysis</h2>
+        <label for="ticketInput">Ticket ID (optional)</label>
+        <input id="ticketInput" type="text" placeholder="TICKET-1001">
+        <label for="customerInput">Customer ID (optional)</label>
+        <input id="customerInput" type="text" placeholder="CUST-1234">
+        <label for="messageInput">Message for /api/v1/tickets/analyze</label>
+        <textarea id="messageInput" rows="5" placeholder="Example: The customer requests a subscription refund."></textarea>
+        <button id="analyzeBtn" type="button">Send POST</button>
         <p class="hint">
-          Если эндпоинт пока не реализован, интерфейс покажет подсказку.
+          You can also use Swagger via the link above for manual API testing.
         </p>
       </article>
     </section>
 
     <section class="card logs">
-      <h2>Логи запросов</h2>
+      <h2>Request Logs</h2>
       <div class="log-grid">
         <div>
           <h3>Request</h3>

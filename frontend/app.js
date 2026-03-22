@@ -3,7 +3,9 @@ const healthPayload = document.getElementById("healthPayload");
 const requestPreview = document.getElementById("requestPreview");
 const responsePreview = document.getElementById("responsePreview");
 const healthBtn = document.getElementById("healthBtn");
-const chatBtn = document.getElementById("chatBtn");
+const analyzeBtn = document.getElementById("analyzeBtn");
+const ticketInput = document.getElementById("ticketInput");
+const customerInput = document.getElementById("customerInput");
 const messageInput = document.getElementById("messageInput");
 
 function format(value) {
@@ -58,17 +60,17 @@ async function checkHealth() {
   try {
     const { response, payload, latencyMs } = await fetchJson("/health");
     if (!response.ok) {
-      setStatus("API недоступно", "error");
+      setStatus("API is unavailable", "error");
       healthPayload.textContent = format(payload);
       logResponse(response.status, latencyMs, payload);
       return;
     }
 
-    setStatus(`API доступно (${latencyMs} ms)`, "ok");
+    setStatus(`API is available (${latencyMs} ms)`, "ok");
     healthPayload.textContent = format(payload);
     logResponse(response.status, latencyMs, payload);
   } catch (error) {
-    setStatus("Ошибка соединения", "error");
+    setStatus("Connection error", "error");
     const payload = { error: error.message };
     healthPayload.textContent = format(payload);
     logResponse(0, 0, payload);
@@ -77,19 +79,28 @@ async function checkHealth() {
   }
 }
 
-async function sendChatRequest() {
+async function sendTicketAnalyzeRequest() {
   const message = messageInput.value.trim();
   if (!message) {
     messageInput.focus();
     return;
   }
 
+  const ticketId = ticketInput.value.trim();
+  const customerId = customerInput.value.trim();
   const body = { message };
-  chatBtn.disabled = true;
-  logRequest("POST", "/api/v1/chat", body);
+  if (ticketId) {
+    body.ticket_id = ticketId;
+  }
+  if (customerId) {
+    body.customer_id = customerId;
+  }
+
+  analyzeBtn.disabled = true;
+  logRequest("POST", "/api/v1/tickets/analyze", body);
 
   try {
-    const { response, payload, latencyMs } = await fetchJson("/api/v1/chat", {
+    const { response, payload, latencyMs } = await fetchJson("/api/v1/tickets/analyze", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -98,10 +109,7 @@ async function sendChatRequest() {
     });
 
     if (response.status === 404) {
-      logResponse(404, latencyMs, {
-        hint: "Эндпоинт /api/v1/chat пока не реализован. Добавьте роут в backend.",
-        original_response: payload,
-      });
+      logResponse(404, latencyMs, { hint: "Endpoint not found.", original_response: payload });
       return;
     }
 
@@ -109,10 +117,10 @@ async function sendChatRequest() {
   } catch (error) {
     logResponse(0, 0, { error: error.message });
   } finally {
-    chatBtn.disabled = false;
+    analyzeBtn.disabled = false;
   }
 }
 
 healthBtn.addEventListener("click", checkHealth);
-chatBtn.addEventListener("click", sendChatRequest);
+analyzeBtn.addEventListener("click", sendTicketAnalyzeRequest);
 window.addEventListener("load", checkHealth);

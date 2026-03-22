@@ -201,11 +201,24 @@ textarea {
   border-radius: 12px;
   padding: 0.7rem 0.85rem;
   font: inherit;
-  resize: vertical;
-  min-height: 120px;
   margin-bottom: 0.65rem;
 }
 
+input {
+  width: 100%;
+  border: 1px solid rgba(23, 39, 63, 0.2);
+  border-radius: 12px;
+  padding: 0.7rem 0.85rem;
+  font: inherit;
+  margin-bottom: 0.65rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+input:focus,
 textarea:focus {
   outline: 2px solid rgba(15, 139, 141, 0.3);
   border-color: rgba(15, 139, 141, 0.7);
